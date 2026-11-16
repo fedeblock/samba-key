@@ -1,0 +1,13 @@
+# Disposable client image for integration tests. Runs the portal's own
+# samba_key.core against a real Samba server over the test network.
+FROM debian:stable-slim
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        python3 samba-common-bin smbclient \
+    && rm -rf /var/lib/apt/lists/*
+ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
+    PYTHONPATH=/app
+WORKDIR /app
+COPY samba_key/ /app/samba_key/
+# The test driver is mounted at run time (it lives under tests/, which the
+# main .dockerignore excludes); it imports the bundled samba_key package.
+CMD ["python3", "/integration_real.py"]

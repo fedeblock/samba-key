@@ -1,0 +1,48 @@
+/* Visual identity: "Casa y Samba Key" (blue/ink "tinta" palette). Pure CSS, no
+   scripts or external requests. Preserves all a11y-critical structure (skip link,
+   focus outlines, reduced-motion, visually-hidden, >=44px controls). The warm
+   accent is used only for small decorative details, never to signal success. */
+:root{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#202f48;background:#f7f5f0;color-scheme:light}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:grid;place-items:center;padding:1.25rem;background:radial-gradient(ellipse at 16% 0%,#eef2f7,transparent 43%),radial-gradient(ellipse at 95% 100%,#f2eef2,transparent 42%),#f7f5f0}
+main{width:min(100%,32rem);background:#fff;border:1px solid #dde3e9;border-radius:1.25rem;padding:clamp(1.4rem,5vw,2.5rem);box-shadow:0 20px 65px #223b6018}
+nav{text-align:right;font-size:.8rem;color:#44546b}nav a{color:#285b86;text-decoration:none}nav a:hover{text-decoration:underline}
+.eyebrow{color:#223b60;font-size:.74rem;font-weight:800;letter-spacing:.16em;margin:0 0 .8rem}
+h1{font-family:Georgia,serif;font-size:clamp(1.65rem,6vw,2.15rem);line-height:1.12;letter-spacing:-.035em;margin:0 0 .7rem;color:#223b60}
+p{line-height:1.55;color:#44546b;margin:.6rem 0}
+form{display:grid;gap:1rem;margin:1.6rem 0}
+fieldset{border:0;margin:0;padding:0;min-width:0;display:grid;gap:1rem}
+.field{display:grid;gap:.45rem;margin:0}
+label{font-size:.9rem;font-weight:650;color:#202f48}
+input,select{width:100%;min-height:2.9rem;padding:.75rem .85rem;border:1px solid #dde3e9;border-radius:.55rem;background:#fff;color:#202f48;font:inherit;font-weight:400}
+input:focus-visible,select:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid #285b86;outline-offset:2px}
+.password{position:relative;display:flex}
+.password input{flex:1;min-width:0;border-radius:.55rem 0 0 .55rem}
+.reveal{flex:0 0 auto;min-height:2.9rem;padding:0 .9rem;border:1px solid #dde3e9;border-left:0;border-radius:0 .55rem .55rem 0;background:#f7f5f0;color:#285b86;font:inherit;font-size:.85rem;font-weight:700;cursor:pointer}
+.reveal:hover{background:#eef2f7}
+button[type="submit"]{width:100%;min-height:3.1rem;margin-top:.25rem;border:0;border-radius:.55rem;padding:.8rem;background:#285b86;color:#fff;font:inherit;font-weight:700;cursor:pointer;transition:background .15s ease}
+button[type="submit"]:hover{background:#1f4966}
+/* Success has both a visual marker and an explicit text message. */
+.notice{background:#f7f5f0;border-left:4px solid #dde3e9;padding:.8rem;border-radius:.3rem;color:#202f48}
+.notice--success{display:flex;align-items:flex-start;gap:.65rem;background:#e9f7ef;border-color:#25865d;color:#145439}
+.notice-icon{flex:none;display:grid;place-items:center;width:1.4rem;height:1.4rem;margin-top:.05rem;border-radius:50%;background:#25865d;color:#fff;font-weight:800;line-height:1}
+.hint{font-size:.85rem;color:#44546b;border-top:1px solid #dde3e9;padding-top:1rem}
+.hint a{color:#285b86;text-decoration-thickness:1px;text-underline-offset:.2em}
+.recovery-details{margin:1rem 0;padding:.8rem 1rem;border:1px solid #dde3e9;border-radius:.55rem;background:#f7f5f0;font-size:.9rem}
+.recovery-details[hidden]{display:none}
+.recovery-details p{margin:.2rem 0}
+.field-hint{font-size:.8rem;line-height:1.4;color:#44546b}
+.back{display:inline-block;min-height:2.75rem;padding:.6rem 0;color:#285b86;font-weight:650;text-decoration:underline;text-underline-offset:.2em;cursor:pointer}
+.back:hover{color:#1f4966}
+.skip{position:absolute;left:.5rem;top:-4rem;background:#223b60;color:#fff;padding:.5rem .9rem;border-radius:.4rem;z-index:10;transition:top .15s ease}
+.skip:focus{top:.5rem}
+/* The warm accent is reserved for a small decorative detail only. */
+.eyebrow::before{content:"";display:inline-block;width:.5rem;height:.5rem;margin-right:.4rem;background:#e2a286;border-radius:50%;vertical-align:middle}
+.visually-hidden{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+@media (max-width:380px){
+  nav{text-align:left;font-size:.75rem}
+  .reveal{min-width:3.4rem}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition:none!important;animation:none!important}
+}

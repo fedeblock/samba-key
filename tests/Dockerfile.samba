@@ -1,0 +1,12 @@
+# Disposable Samba server image for integration tests. Not for production.
+# Build with the build context set to tests/ (e.g. `docker build -f
+# tests/Dockerfile.samba tests/`), because the main .dockerignore excludes
+# tests/ from the repository-root context.
+FROM debian:stable-slim
+RUN apt-get update && apt-get install -y --no-install-recommends samba bash \
+    && rm -rf /var/lib/apt/lists/*
+COPY smb.conf /etc/samba/smb.conf
+COPY entrypoint-samba.sh /entrypoint-samba.sh
+RUN chmod +x /entrypoint-samba.sh
+# No published ports; the orchestrator attaches it to an ephemeral network.
+CMD ["/entrypoint-samba.sh"]

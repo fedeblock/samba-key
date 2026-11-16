@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="{{ lang }}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Samba Key · {{ t.recovery_title }}</title>
+<link rel="stylesheet" href="/static/style.css">
+<script src="/static/app.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#content">{{ t.skip }}</a>
+<main id="content">
+<nav aria-label="{{ t.language }}">
+<a href="/?lang=en" lang="en"{% if lang == 'en' %} aria-current="page"{% endif %}>English</a> ·
+<a href="/?lang=es" lang="es"{% if lang == 'es' %} aria-current="page"{% endif %}>Español</a>
+</nav>
+<p class="eyebrow">SAMBA KEY</p>
+<h1>{{ t.recovery_title }}</h1>
+{% if message %}<p id="status" role="status" aria-live="polite" class="notice{% if message_success %} notice--success{% endif %}">{% if message_success %}<span class="notice-icon" aria-hidden="true">✓</span>{% endif %}<span>{{ message }}</span></p>{% endif %}
+{% if enable_form %}
+{% if mode == 'request' %}
+<p class="hint">{{ t.recovery_hint }}</p>
+<form id="recovery-form" method="post" novalidate>
+<input type="hidden" name="csrf" value="{{ csrf }}">
+<fieldset>
+<legend class="visually-hidden">{{ t.recovery_title }}</legend>
+<p class="field">
+<label for="username">{{ t.user }}</label>
+<input id="username" name="username" value="{{ username }}" autocomplete="username"
+       autocapitalize="none" spellcheck="false" required maxlength="64" inputmode="text">
+</p>
+<p class="field">
+<label for="channel">{{ t.recovery_channel }}</label>
+<select id="channel" name="channel">
+<option value="auto">{{ t.recovery_auto }}</option>
+<option value="email">{{ t.recovery_email }}</option>
+<option value="telegram">{{ t.recovery_telegram }}</option>
+</select>
+</p>
+<button type="submit">{{ t.recovery_submit }}</button>
+</fieldset>
+</form>
+{% else %}
+<p class="hint">{{ t.recovery_complete_hint }}</p>
+<div id="recovery-details" class="recovery-details" aria-live="polite" hidden
+     data-email-label="{{ t.recovery_email_label }}" data-telegram-label="{{ t.recovery_telegram_label }}">
+<p><strong>{{ t.recovery_account_label }}:</strong> <span id="recovery-account"></span></p>
+<p><strong>{{ t.recovery_destination_label }}:</strong> <span id="recovery-destination"></span></p>
+<p id="recovery-associated-email-row" hidden><strong>{{ t.recovery_associated_email_label }}:</strong> <span id="recovery-associated-email"></span></p>
+</div>
+<form id="recovery-form" method="post" novalidate>
+<input type="hidden" name="csrf" value="{{ csrf }}">
+<fieldset>
+<legend class="visually-hidden">{{ t.recovery_new_password }}</legend>
+<p class="field">
+<label for="token">{{ t.recovery_token }}</label>
+<input id="token" name="token" type="password" value="{{ recovery_token }}" autocomplete="off" autocapitalize="none"
+       spellcheck="false" required>
+</p>
+<p class="field">
+<label for="new_password">{{ t.recovery_new_password }}</label>
+<span class="password">
+<input id="new_password" name="new_password" type="password"
+       autocomplete="new-password" required minlength="{{ min_length }}" aria-describedby="password-hint">
+<button type="button" class="reveal" data-target="new_password" aria-pressed="false">
+<span class="show" data-i18n="show">{{ t.show }}</span>
+<span class="hide visually-hidden" data-i18n="hide">{{ t.hide }}</span>
+</button>
+</span>
+<small id="password-hint" class="field-hint">{{ t.recovery_password_hint.format(min=min_length) }}</small>
+</p>
+<button type="submit">{{ t.button }}</button>
+</fieldset>
+</form>
+{% endif %}
+{% endif %}
+<p><a class="back" href="/?lang={{ lang }}">{{ t.back_to_start }}</a></p>
+</main>
+</body>
+</html>

@@ -1,0 +1,6 @@
+# Copy to a private administrator-owned file. These are fictitious values.
+[[users]]
+username = "alice"
+name = "Alice Example"
+email = "alice@example.com"
+phone = "+1 555 0100"

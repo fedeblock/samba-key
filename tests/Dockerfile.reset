@@ -1,0 +1,12 @@
+# Disposable Samba + Python image for the forgotten-password reset integration
+# test. Not for production. Built from the repository root so it can bundle
+# samba_key/; the test-only entrypoint, driver and smb.conf are bind-mounted by
+# the orchestrator (tests/ is excluded from this build context by .dockerignore).
+FROM debian:stable-slim
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        samba samba-common-bin smbclient bash python3 \
+    && rm -rf /var/lib/apt/lists/*
+COPY samba_key/ /app/samba_key/
+ENV PYTHONPATH=/app
+# The entrypoint, driver and smb.conf are mounted read-only at run time.
+CMD ["/entrypoint-reset.sh"]

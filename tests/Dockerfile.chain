@@ -1,0 +1,12 @@
+# Disposable Samba + Python image for the FULL CHAINED recovery integration test.
+# Not for production. Combines the reset container's Samba setup with the
+# privsep container's real users, so the authority's two sockets are exercised by
+# real, disjoint users and the reset uses the real smbpasswd transport.
+FROM debian:stable-slim
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        samba samba-common-bin smbclient bash python3 python3-flask \
+    && rm -rf /var/lib/apt/lists/*
+COPY samba_key/ /app/samba_key/
+ENV PYTHONPATH=/app
+# The entrypoint, driver and probe are mounted read-only at run time.
+CMD ["/entrypoint-chain.sh"]
